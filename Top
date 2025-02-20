@@ -1,0 +1,157 @@
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+
+local window = DrRayLibrary:Load("The apocalypse", "Default")
+
+-- Tab para herramientas
+local tab1 = DrRayLibrary.newTab("Spawn tools🧰🥫", "ImageIdHere")
+
+tab1.newButton("water", "spawn", function()
+    workspace.Items.Water.Handle.InteractEvent:FireServer()
+end)
+
+tab1.newButton("Ammo", "spawn", function()
+    workspace.Items.Ammo.Handle.InteractEvent:FireServer()
+end)
+
+tab1.newButton("medkit", "spawn", function()
+    workspace.Items.Medkit.Handle.InteractEvent:FireServer()
+end)
+
+tab1.newButton("canned Food", "spawn", function()
+    workspace.Items.CannedFood.Handle.InteractEvent:FireServer()
+end)
+
+tab1.newButton("Ice Scream", "spawn", function()
+    workspace.Items.IceScream.Handle.InteractEvent:FireServer()
+end)
+
+tab1.newButton("Energy Drink", "spawn", function()
+    workspace.Items.EnergyDrink.Handle.InteractEvent:FireServer()
+end)
+
+-- Tab para armas aleatorias
+local tab2 = DrRayLibrary.newTab("Random weapons🔫", "ImageIdHere")
+
+tab2.newButton("Gold Thompson", "spawn", function()
+    workspace.Items.GoldThompson.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("UMP", "spawn", function()
+    workspace.Items.UMP.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("M60", "spawn", function()
+    workspace.Items.M60.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("L96", "spawn", function()
+    workspace.Items.L96.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("M32", "spawn", function()
+    workspace.Items.M32.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Double Barrel", "spawn", function()
+    workspace.Items.DoubleBarrel.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("RPG", "spawn", function()
+    workspace.Items.RPG.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Double Uzi", "spawn", function()
+    workspace.Items.DoubleUzi.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("AUG", "spawn", function()
+    workspace.Items.AUG.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Katana", "spawn", function()
+    workspace.Items.Katana.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Gold Katana", "spawn", function()
+    workspace.Items.GoldKatana.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("P90", "spawn", function()
+    workspace.Items.P90.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Firefighter Axe", "spawn", function()
+    workspace.Items.FirefighterAxe.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Flare Gun", "spawn", function()
+    workspace.Items.FlareGun.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Minigun", "spawn", function()
+    workspace.Items.Minigun.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Golf Club", "spawn", function()
+    workspace.Items.GolfClub.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Crowbar", "spawn", function()
+    workspace.Items.Crowbar.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Shotgun", "spawn", function()
+    workspace.Items.Shotgun.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("Dual Uzi", "spawn", function()
+    workspace.Items.DualUzi.Handle.InteractEvent:FireServer()
+end)
+
+tab2.newButton("M4", "spawn", function()
+    workspace.Items.M4.Handle.InteractEvent:FireServer()
+end)
+
+-- Tab para control del jugador
+local tab3 = DrRayLibrary.newTab("Player", "ImageIdHere")
+
+-- Ajuste de velocidad y movimiento
+local tspeed = 1
+local minSpeed = 1
+local maxSpeed = 100
+local hb = game:GetService("RunService").Heartbeat
+local tpwalking = true
+local player = game:GetService("Players")
+local lplr = player.LocalPlayer
+local chr = lplr.Character or lplr.CharacterAdded:Wait()
+local hum = chr:WaitForChild("Humanoid")
+
+local function isNumber(str)
+    return tonumber(str) ~= nil or str == 'inf'
+end
+
+local function adjustSpeed(newSpeed)
+    if isNumber(newSpeed) then
+        local speedValue = tonumber(newSpeed)
+        if speedValue < minSpeed then
+            tspeed = minSpeed
+        elseif speedValue > maxSpeed then
+            tspeed = maxSpeed
+        else
+            tspeed = speedValue
+        end
+    end
+end
+
+-- Input field para ajustar la velocidad
+tab3.newInput("Speed", "Enter speed value", function(text)
+    adjustSpeed(text)
+end)
+
+-- Bucle de movimiento
+while tpwalking and hb:Wait() and chr and hum and hum.Parent do
+    if hum.MoveDirection.Magnitude > 0 then
+        local adjustedSpeed = tspeed * 0.2
+        chr:TranslateBy(hum.MoveDirection * adjustedSpeed)
+    end
+end
